@@ -1,0 +1,51 @@
+<html>
+
+<head>
+    <title>Shuru Turu</title>
+    <link rel="stylesheet" href="/styles/add_tour.css" />
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"
+        integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="/js/add_tour.js"></script>
+</head>
+<header>
+    <button id="back_list_btn">
+        <h4>Back To List</h4>
+    </button>
+    <div id="headline">
+        <h1>Add New Tour</h1>
+    </div>
+</header>
+<div id="form">
+    <div class="form_field">
+        <h3>Tour ID</h3>
+        <input id="tourID" type="text" value="USA2021" />
+    </div>
+    <div class="form_field">
+        <h3>Start Date</h3>
+        <input id="start_date" type="date" value="2021-05-05" />
+    </div>
+    <div class="form_field">
+        <h3>Duration</h3>
+        <input id="duration" type="number" min=0 value=12 />
+    </div>
+    <div class="form_field">
+        <h3>Price</h3>
+        <input id="price" type="number" min=0 step=0.1 value=2990 />
+    </div>
+    <div class="form_field">
+        <h3>Guide</h3>
+        <input id="guide_id" type="text" value="60c9d9c913f62b0cc7ac82e7" />
+    </div>
+    <div id="path_container" class="form_field">
+        <div class="path_headline">
+            <button id="add_path">
+                <h3>Path + </h3>
+            </button>
+        </div>
+    </div>
+    <button id="add_tour_btn">
+        <h3>Add Tour</h3>
+    </button>
+</div>
+
+</html>
