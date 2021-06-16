@@ -7,7 +7,7 @@ dateToReadbleFormat = (date) => date.getDate() + '.' + (date.getMonth() + 1) + '
 // this function loads the main objects in page
 load_page = () => {
     // getting the list of all tours by ajax call from server
-    show_add_tours_button()
+    show_add_buttons()
     $.ajax({
         url: '/tours',
         success: (data) => {
@@ -29,9 +29,12 @@ load_page = () => {
 }
 
 // set ADD_TOUR buttons click
-show_add_tours_button = () => {
+show_add_buttons = () => {
     $(".add_tour").click(() => {
-        window.location = "/add"
+        window.location = "/add_tour"
+    })
+    $(".add_guide").click(() => {
+        window.location = "/add_guide"
     })
 }
 

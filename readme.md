@@ -1,4 +1,4 @@
 -> Clone Project
--> nom install
+-> npm install
 -> node ./server.js
 -> browse to localhost:3001/list

@@ -18,16 +18,12 @@ var GuideSchema = new mongoose.Schema({
             }
         }
     },
-    price: {
-        type: Number,
-        min: 0,
-    },
-    password: {
+    cellular: {
         type: String,
         required: true,
-        minlength: 8,
         trim: true,
     },
+
 }, { timestamps: true });
 
 

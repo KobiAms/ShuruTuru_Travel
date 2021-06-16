@@ -1,14 +1,29 @@
 let paths_counter
-
+let guides = []
 // this function loads the main objects in page
 $("document").ready(() => load_page());
 load_page = () => {
     // set the path counter to sero 
     paths_counter = 0
     // sets the buttons click events
+    get_guides_list();
     $("#add_path").click(() => add_path_entery())
     $("#add_tour_btn").click(() => add_new_tour())
     $("#back_list_btn").click(() => window.location = "/list")
+}
+
+
+get_guides_list = () => {
+    $.ajax({
+        url: '/guides',
+        success: (data) => {
+            guides = data;
+            guides.forEach(guide => {
+                $('#select_guide').append("<option value=\"" + guide._id + "\">" + guide.name + "</option>")
+            });
+        },
+        error: (err) => console.log("error at loading tours" + err)
+    })
 }
 
 // this function call by clicking the "Add Tour" button. this function gets the values from the inputs fields
@@ -23,32 +38,30 @@ add_new_tour = () => {
         path.push({ name: $("#path_" + index + "_name").val().replace(/ /g, "_"), country: $("#path_" + index + "_country").val() })
         path_cpy_vld.push({ name: $("#path_" + index + "_name").val(), country: $("#path_" + index + "_country").val(), idx: index })
     }
-    // gets the tour id value form his field
-    let name = $("#tourID").val()
     // gets the values from yhe inputs fields into new_tour object
     let new_tour = {
-        name: name,
+        name: $("#name").val(),
         start_date: new Date($("#start_date").val()),
         duration: parseFloat($("#duration").val()),
         price: parseFloat($("#price").val()),
-        guide: $("#guide_id").val(),
+        guide: $("#select_guide").val(),
         path: path
     }
     // if the validation stage pass, use ajax to set the data into the server
-    // if (!validate_tour_fields(tourID, new_tour) && !validate_path_fields(path_cpy_vld)) {
-    $.ajax({
-        url: '/tours',
-        type: 'POST',
-        data: new_tour,
-        success: () => {
-            // in case of success, show alert to user
-            alert("new Tour added succefuly!")
-        },
-        error: (err) => {
-            alert("Oops..! Some error just happend: \n\"" + err.responseText + "\"")
-        }
-    })
-    // }
+    if (!validate_tour_fields(new_tour) && !validate_path_fields(path_cpy_vld)) {
+        $.ajax({
+            url: '/tours',
+            type: 'POST',
+            data: new_tour,
+            success: () => {
+                // in case of success, show alert to user
+                alert("new Tour added succefuly!")
+            },
+            error: (err) => {
+                alert("Oops..! Some error just happend: \n\"" + err.responseText + "\"")
+            }
+        })
+    }
 }
 
 // this function set the input style to error and back to normal if the user focus on the input
@@ -95,11 +108,11 @@ validate_path_fields = (path) => {
 }
 
 // validate tour main fields property that are not empty
-validate_tour_fields = (tourID, new_tour) => {
+validate_tour_fields = (new_tour) => {
     // set the flag
     let missing = false;
-    if (tourID.length == 0) {
-        set_input_error_style("tourID")
+    if (new_tour.name.length == 0) {
+        set_input_error_style("name")
         missing = true;
     }
     if (new_tour.start_date.length == 0) {
@@ -114,25 +127,11 @@ validate_tour_fields = (tourID, new_tour) => {
         set_input_error_style("price")
         missing = true;
     }
-    if (new_tour.guide.name.length == 0) {
-        set_input_error_style("guide_name")
-        missing = true;
-    }
-    if (!validateEmail(new_tour.guide.email)) {
-        set_input_error_style("guide_email")
-        missing = true;
-    }
-    if (new_tour.guide.cellular.length == 0) {
-        set_input_error_style("guide_cellular")
+    if (new_tour.guide == 'none') {
+        set_input_error_style("select_guide")
         missing = true;
     }
     return missing
-}
-
-// this function check if the email input are in the correct tamplate "xx@xx.xx"
-validateEmail = (email) => {
-    var re = /\S+@\S+\.\S+/;
-    return re.test(email);
 }
 
 // this function add one more site entery at the path box

@@ -68,45 +68,15 @@ input {
   border-radius: 10px;
   text-align: center;
 }
-select {
-  margin: 2;
-  border: 2px solid #a4a3a3;
-  background-color: #ffffff;
-  border-radius: 10px;
-  text-align: center;
-}
-#add_tour_btn {
+#add_guide_btn {
   padding: 20;
   background-color: #5fa004;
   border: 0px;
   margin: 20;
   border-radius: 5px;
 }
-#add_tour_btn:hover {
+#add_guide_btn:hover {
   background-color: #79d000;
-}
-.path_btns {
-  margin: 5;
-  padding: 5;
-  padding-left: 10;
-  padding-right: 10;
-  margin-top: 30;
-  background-color: #a20000;
-  border: 0px;
-  border-radius: 5px;
-}
-.path_btns:hover {
-  background-color: #670000;
-}
-#add_path {
-  margin: 5;
-  padding: 5;
-  border: 0px;
-  border-radius: 10px;
-  background-color: #a97900;
-}
-#add_path:hover {
-  background-color: #dfa000;
 }
 #back_list_btn {
   height: min-content;
